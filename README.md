@@ -7,6 +7,7 @@ Esta API permite la creación de usuarios con un formato específico y valida lo
 
 ## Requisitos
 - IDE de preferencia (Desarrollado en Eclipse IDE)
+- Visual Studio Code
 - Postman
 - Java 17
 - Maven 
@@ -24,3 +25,7 @@ Esta API permite la creación de usuarios con un formato específico y valida lo
 
 ## Validación
 1. Ingresar a la URL "http://localhost:8090/h2". Los datos para el login se encuentra en el application.properties.
+
+## Visualizar diagrama solución
+1. Abrir VSC e importar el proyecto.
+2. Abrir el archivo solucion.puml, dar clic dentro del archivo y ejecutar "Alt + D", con ello se visualiza la solución

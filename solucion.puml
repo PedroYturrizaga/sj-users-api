@@ -1,0 +1,55 @@
+@startuml
+!define RECTANGLE_COLOR #ADD8E6
+
+skinparam component {
+    BackgroundColor RECTANGLE_COLOR
+    BorderColor Black
+}
+
+actor Cliente
+
+rectangle Controller {
+    [UsersController]
+}
+
+rectangle Service {
+    [UserService]
+}
+
+rectangle Mapper {
+    [UserMapper]
+}
+
+rectangle DTO {
+}
+
+rectangle Repository {
+    [UserRepository]
+}
+
+rectangle Model {
+    [UserModel]
+}
+
+rectangle Config {
+    [AppConfig]
+}
+
+rectangle Security {
+    [SecurityFilter]
+}
+
+rectangle Exception {
+    [CustomExceptionHandler]
+}
+
+Cliente --> Controller
+Controller --> Service
+Service --> Mapper
+Mapper --> DTO
+Service --> Repository
+Repository --> Model
+Controller --> Exception : Manejo de errores
+Controller --> Security : Validación de autenticación
+Config --> Controller : Configuración inicial
+@enduml

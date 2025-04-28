@@ -8,7 +8,6 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-//@SpringBootApplication
 @SpringBootApplication(exclude = {ErrorMvcAutoConfiguration.class})
 public class PracticaUsersapiApplication extends SpringBootServletInitializer{
 	

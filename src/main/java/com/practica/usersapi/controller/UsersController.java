@@ -12,8 +12,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import com.practica.usersapi.dto.UsersResponseDTO;
 import com.practica.usersapi.exception.InvalidEmailFormatException;
 import com.practica.usersapi.exception.InvalidPasswordFormatException;
-import com.practica.usersapi.exception.RestExceptionHandler;
-import com.practica.usersapi.model.Users;
 import com.practica.usersapi.repository.UsersRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,22 +25,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/users")
 public class UsersController {
 
     private final UsersService userService;
-    private final UsersRepository userRepository;
     private final Pattern passwordPattern;
     private static final String EMAIL_REGEX = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
 
     @Autowired
     public UsersController(UsersService userService, UsersRepository userRepository, Pattern passwordPattern) {
         this.userService = userService;
-		this.userRepository = userRepository;
-        this.passwordPattern = passwordPattern;
+		this.passwordPattern = passwordPattern;
     }
 
     @Operation(summary = "Crear un nuevo usuario", description = "Crea un nuevo usuario con los datos proporcionados.")
@@ -52,13 +47,10 @@ public class UsersController {
         @ApiResponse(responseCode = "400", description = "Formato de correo o contraseña inválido",
             content = @Content)
     })
-
     @PostMapping("/create")
     public ResponseEntity<UsersResponseDTO> createUser(@RequestBody UsersRequestDTO userRequestDTO) throws Exception {
-//        validateEmail(userRequestDTO.getEmail());
-//        validatePassword(userRequestDTO.getPassword());
-//        UsersResponseDTO createdUser = userService.createUser(userRequestDTO);
-//        return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
+        validateEmail(userRequestDTO.getEmail());
+        validatePassword(userRequestDTO.getPassword());
     	UsersResponseDTO createdUser = userService.createUser(userRequestDTO);
 	    try {
 	        return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);

@@ -48,7 +48,6 @@ public class UsersControllerTest {
 
     @Test
     public void testCreateUser_Success() throws Exception {
-        // Arrange
         UsersRequestDTO userRequestDTO = new UsersRequestDTO();
         userRequestDTO.setName("Juan Rodriguez");
         userRequestDTO.setEmail("juan@rodriguez.org");
@@ -73,7 +72,6 @@ public class UsersControllerTest {
         when(matcherMock.matches()).thenReturn(true); 
         when(userService.createUser(any())).thenReturn(userResponseDTO);
 
-        // Act & Assert
         mockMvc.perform(post("/users")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(userRequestDTO)))
@@ -84,7 +82,6 @@ public class UsersControllerTest {
 
     @Test
     public void testCreateUser_InvalidEmail() throws Exception {
-        // Arrange
         UsersRequestDTO userRequestDTO = new UsersRequestDTO();
         userRequestDTO.setName("Juan Rodriguez");
         userRequestDTO.setEmail("invalid-email");
@@ -100,7 +97,6 @@ public class UsersControllerTest {
         Matcher matcherMock = org.mockito.Mockito.mock(Matcher.class);
         when(passwordPattern.matcher(any())).thenReturn(matcherMock); 
         when(matcherMock.matches()).thenReturn(true); 
-        // Act & Assert
         mockMvc.perform(post("/users")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(userRequestDTO)))
@@ -110,7 +106,6 @@ public class UsersControllerTest {
 
     @Test
     public void testCreateUser_InvalidPassword() throws Exception {
-        // Arrange
         UsersRequestDTO userRequestDTO = new UsersRequestDTO();
         userRequestDTO.setName("Juan Rodriguez");
         userRequestDTO.setEmail("juan@rodriguez.org");
@@ -127,7 +122,6 @@ public class UsersControllerTest {
         when(passwordPattern.matcher(any())).thenReturn(matcherMock); 
         when(matcherMock.matches()).thenReturn(true); 
 
-        // Act & Assert
         mockMvc.perform(post("/users")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(userRequestDTO)))
@@ -137,7 +131,6 @@ public class UsersControllerTest {
 
     @Test
     public void testCreateUser_EmailAlreadyExists() throws Exception {
-        // Arrange
         UsersRequestDTO userRequestDTO = new UsersRequestDTO();
         userRequestDTO.setName("Juan Rodriguez");
         userRequestDTO.setEmail("juan@rodriguez.org");
@@ -153,10 +146,8 @@ public class UsersControllerTest {
         Matcher matcherMock = org.mockito.Mockito.mock(Matcher.class);
         when(passwordPattern.matcher(any())).thenReturn(matcherMock); 
         when(matcherMock.matches()).thenReturn(true); 
-        // when(passwordPattern.matcher(any())).thenReturn(true);
         when(userService.createUser(any())).thenThrow(new EmailAlreadyExistsException("El correo ya está registrado"));
 
-        // Act & Assert
         mockMvc.perform(post("/users")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(userRequestDTO)))

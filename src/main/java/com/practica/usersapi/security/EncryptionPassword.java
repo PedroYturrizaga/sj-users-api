@@ -24,10 +24,4 @@ public class EncryptionPassword {
 		byte[] decryptedBytes = cipher.doFinal(decodedBytes);
 		return new String(decryptedBytes, "UTF-8");
 	}
-
-	public static void main(String[] args) throws Exception {
-		String originalText = "This is sensitive data";
-		String encryptedText = encrypt(originalText);
-		String decryptedText = decrypt(encryptedText);
-	}
 }

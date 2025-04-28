@@ -6,11 +6,15 @@ import com.practica.usersapi.exception.EmailAlreadyExistsException;
 import com.practica.usersapi.mapper.UsersMapper;
 import com.practica.usersapi.model.Users;
 import com.practica.usersapi.repository.UsersRepository;
+import com.practica.usersapi.security.EncryptionPassword;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class UsersService {
@@ -24,12 +28,17 @@ public class UsersService {
         this.userMapper = userMapper;
     }
 
-    public UsersResponseDTO createUser(UsersRequestDTO userRequestDTO) {
+    public UsersResponseDTO createUser(UsersRequestDTO userRequestDTO) throws Exception {
         if (userRepository.findByEmail(userRequestDTO.getEmail()) != null) {
             throw new EmailAlreadyExistsException("El correo ya está registrado");
         }
+        
+        String encryptedPassword = EncryptionPassword.encrypt(userRequestDTO.getPassword());
 
         Users user = userMapper.toEntity(userRequestDTO);
+        user.setName(userRequestDTO.getName());
+        user.setEmail(userRequestDTO.getEmail());
+        user.setPassword(encryptedPassword);
         user.setCreated(new Date());
         user.setModified(new Date());
         user.setLastLogin(new Date());
@@ -37,5 +46,12 @@ public class UsersService {
         user.setActive(true);
         user = userRepository.save(user);
         return userMapper.toDto(user);
+    }
+    
+    public List<UsersResponseDTO> getAllUsers() {
+        List<Users> users = userRepository.findAll();
+        return users.stream()
+                .map(user -> new UsersResponseDTO(user.getId(), user.getName(), user.getEmail()))
+                .collect(Collectors.toList());
     }
 }

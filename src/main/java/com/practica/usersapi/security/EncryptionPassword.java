@@ -5,8 +5,8 @@ import javax.crypto.spec.SecretKeySpec;
 import java.util.Base64;
 
 public class EncryptionPassword {
-	private static final String SECRET_KEY = "P45s3ncrYpt10n"; //solo para la prueba
-	private static final String ALGORITHM = "MD5";
+	private static final String SECRET_KEY = "Pa5sT03ncrYpt10n"; //solo para la prueba
+	private static final String ALGORITHM = "AES";
 
 	public static String encrypt(String data) throws Exception {
 		SecretKeySpec key = new SecretKeySpec(SECRET_KEY.getBytes("UTF-8"), ALGORITHM);

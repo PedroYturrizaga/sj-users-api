@@ -15,8 +15,18 @@ public class UsersResponseDTO {
     private Date lastLogin;
     private String token;
     private boolean isActive;
+    private String error;
 
-    public UUID getId() {
+    public UsersResponseDTO(UUID id, String name, String email) {
+    	this.id = id;
+    	this.name = name;
+    	this.email = email;
+	}
+
+	public UsersResponseDTO() {
+	}
+
+	public UUID getId() {
         return id;
     }
 
@@ -87,4 +97,12 @@ public class UsersResponseDTO {
     public void setActive(boolean active) {
         isActive = active;
     }
+
+	public String getError() {
+		return error;
+	}
+
+	public void setError(String error) {
+		this.error = error;
+	}
 }

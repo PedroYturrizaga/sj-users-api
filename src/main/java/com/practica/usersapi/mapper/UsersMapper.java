@@ -5,7 +5,9 @@ import com.practica.usersapi.dto.UsersResponseDTO;
 import com.practica.usersapi.model.Users;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.springframework.stereotype.Component;
 
+@Component
 @Mapper(componentModel = "spring")
 public interface UsersMapper {
 

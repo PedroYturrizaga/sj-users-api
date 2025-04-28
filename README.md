@@ -21,4 +21,6 @@ Esta API permite la creación de usuarios con un formato específico y valida lo
 5. Ubicar y abrir la clase "PracticaUsersapiApplication", ubicada en "\src\main\java\com\practica\usersapi\" 
 6. Dar clic derecho sobre la clase y elegir "Run as" -> "Java Application
 7. En postman, ingresar la url: "http://localhost:8090/users" y completar con el body.
-   
+
+## Validación
+1. Ingresar a la URL "http://localhost:8090/h2". Los datos para el login se encuentra en el application.properties.
